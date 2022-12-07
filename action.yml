@@ -28,10 +28,15 @@ inputs:
     description: |
       Additional flags passed to CMake (using colcon build --cmake-args)
     required: false
-  colcon-extra-args:
+  colcon-build-extra-args:
     default: ""
     description: |
-      Arbitrary space-separated additional flags to pass to colcon (build & test).
+      Arbitrary space-separated additional flags to pass to colcon build.
+    required: false
+  colcon-test-extra-args:
+    default: ""
+    description: |
+      Arbitrary space-separated additional flags to pass to colcon test.
     required: false
   import-token:
     default: ""

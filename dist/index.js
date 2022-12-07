@@ -15309,8 +15309,10 @@ function run_throw() {
         const coverageIgnorePattern = coverageIgnorePatternInput
             ? ["--filter", coverageIgnorePatternInput]
             : [];
-        const colconExtraArgsInput = core.getInput("colcon-extra-args");
-        const colconExtraArgs = colconExtraArgsInput ? [colconExtraArgsInput] : [];
+        const colconBuildExtraArgsInput = core.getInput("colcon-build-extra-args");
+        const colconBuildExtraArgs = colconBuildExtraArgsInput ? [colconBuildExtraArgsInput] : [];
+        const colconTestExtraArgsInput = core.getInput("colcon-test-extra-args");
+        const colconTestExtraArgs = colconTestExtraArgsInput ? [colconTestExtraArgsInput] : [];
         const importToken = core.getInput("import-token");
         const packageNameInput = core.getInput("package-name");
         const packageNames = packageNameInput
@@ -15549,7 +15551,7 @@ done`;
             `build`,
             `--symlink-install`,
             ...buildPackageSelection,
-            ...colconExtraArgs,
+            ...colconBuildExtraArgs,
             ...extraCmakeArgs,
             `--event-handlers=console_cohesion+`,
         ];
@@ -15558,7 +15560,7 @@ done`;
         }
         yield execShellCommand([...colconCommandPrefix, ...colconBuildCmd], options, false);
         if (!skipTests) {
-            yield runTests(colconCommandPrefix, options, testPackageSelection, colconExtraArgs, coverageIgnorePattern);
+            yield runTests(colconCommandPrefix, options, testPackageSelection, colconTestExtraArgs, coverageIgnorePattern);
         }
         else {
             core.info("Skipping tests");
